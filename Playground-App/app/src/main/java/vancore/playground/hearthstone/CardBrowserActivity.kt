@@ -37,7 +37,10 @@ class CardBrowserActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         // can contain more navigation graphs
-        val navGraphIds = listOf(R.navigation.content_hearthstone)
+        val navGraphIds = listOf(
+            R.navigation.content_hearthstone_card_browser_list,
+            R.navigation.content_hearthstone_card_favorite_list
+        )
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController(

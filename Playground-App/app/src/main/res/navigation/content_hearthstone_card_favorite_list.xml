@@ -15,17 +15,22 @@
   ~ limitations under the License.
   -->
 
-<androidx.recyclerview.widget.RecyclerView
+<navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_card_favorites"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:context="vancore.playground.hearthstone.ui.CardFavoriteFragment"
-    tools:listitem="@layout/listitem_hearthstone_card"/>
+    android:id="@+id/nav_favorite_browser"
+    app:startDestination="@+id/card_favorite">
+
+    <fragment
+        android:id="@+id/card_favorite"
+        android:name="vancore.playground.hearthstone.ui.CardFavoriteFragment"
+        android:label="Card Favorite alla"
+        tools:layout="@layout/fragment_card_favorite">
+        <!--        Here would be something like the detail page of the card -->
+        <!--        <action-->
+        <!--            android:id="@+id/action_leaderboard_to_userProfile"-->
+        <!--            app:destination="@id/favorite_browser"/>-->
+    </fragment>
+
+</navigation>

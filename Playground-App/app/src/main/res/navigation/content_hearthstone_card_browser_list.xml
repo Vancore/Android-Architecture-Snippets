@@ -19,7 +19,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_hearthstone"
+    android:id="@+id/nav_card_browser"
     app:startDestination="@+id/card_browser">
 
     <fragment
@@ -27,22 +27,10 @@
         android:name="vancore.playground.hearthstone.ui.CardBrowserFragment"
         android:label="Card Browser alla"
         tools:layout="@layout/fragment_card_browser">
-        <action
-            android:id="@+id/action_leaderboard_to_userProfile"
-            app:destination="@id/favorite_browser"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/favorite_browser"
-        android:name="vancore.playground.hearthstone.ui.CardFavoriteFragment"
-        android:label="Favoritesss"
-        tools:layout="@layout/fragment_card_favorite">
-        <action
-            android:id="@+id/action_leaderboard_to_userProfile"
-            app:destination="@id/card_browser"/>
-        <argument
-            android:name="userName"
-            app:argType="string"/>
+<!--        Here would be something like the detail page of the card -->
+<!--        <action-->
+<!--            android:id="@+id/action_leaderboard_to_userProfile"-->
+<!--            app:destination="@id/favorite_browser"/>-->
     </fragment>
 
 </navigation>
