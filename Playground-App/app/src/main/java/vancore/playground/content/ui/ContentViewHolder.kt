@@ -1,4 +1,4 @@
-package vancore.playground.ui
+package vancore.playground.content.ui
 
 import androidx.recyclerview.widget.RecyclerView
 import vancore.playground.databinding.ListitemContentBinding
