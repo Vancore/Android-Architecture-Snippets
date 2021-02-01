@@ -42,7 +42,7 @@ interface ServiceLocator {
 
     fun getRepository(): CardRepository
 
-    fun getRedditApi(): CardApi
+    fun getCardApi(): CardApi
 }
 
 /**
@@ -62,9 +62,9 @@ open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolea
     override fun getRepository(): CardRepository {
         return DbCardRepository(
             db = db,
-            cardApi = getRedditApi()
+            cardApi = getCardApi()
         )
     }
 
-    override fun getRedditApi(): CardApi = api
+    override fun getCardApi(): CardApi = api
 }

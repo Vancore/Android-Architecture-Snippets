@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/card_browser"
         android:name="vancore.playground.hearthstone.ui.CardBrowserFragment"
-        android:label="Card Browser alla"
+        android:label="Card Browser - Fragment Label"
         tools:layout="@layout/fragment_card_browser">
 <!--        Here would be something like the detail page of the card -->
 <!--        <action-->

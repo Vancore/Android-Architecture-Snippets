@@ -22,9 +22,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.collect
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import vancore.playground.R
+import vancore.playground.hearthstone.authentication.LoginResponse
 import vancore.playground.hearthstone.ui.loadingstate.CardLoadStateAdapter
 import vancore.playground.util.ServiceLocator
+import vancore.playground.util.SessionManager
 import vancore.playground.util.glide.GlideApp
 
 @InternalCoroutinesApi
@@ -57,10 +62,13 @@ class CardBrowserFragment : Fragment() {
         }
     }
 
+    private lateinit var sessionManager: SessionManager
     private lateinit var adapter: CardAdapter
+    private var authToken = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = SessionManager(requireContext())
         initAdapter()
         initSwipeToRefresh()
         initSearch()
@@ -80,11 +88,30 @@ class CardBrowserFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenCreated {
-            model.cards.collectLatest {
-                adapter.submitData(it)
-            }
-        }
+        ServiceLocator.instance(requireContext()).getCardApi().login("client_credentials", "LEWHj96ZC2dVT94m8jMSDHKAvrYRMSYK", "83d65959a7484ec18f48a60f2f9f4c00")
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    // Error logging in
+                    authToken = ""
+                }
+
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    val loginResponse = response.body()
+
+                    if (loginResponse?.accessToken != null /*loginResponse?.statusCode == 200*/) {
+                        sessionManager.saveAuthToken(loginResponse.accessToken)
+                        authToken = loginResponse.accessToken
+
+                        lifecycleScope.launchWhenCreated {
+                            model.cards.collectLatest {
+                                adapter.submitData(it)
+                            }
+                        }
+                    } else {
+                        // Error logging in
+                    }
+                }
+            })
 
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow

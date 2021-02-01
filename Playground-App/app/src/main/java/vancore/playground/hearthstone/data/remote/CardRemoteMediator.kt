@@ -5,7 +5,11 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.HttpException
+import retrofit2.Response
+import vancore.playground.hearthstone.authentication.LoginResponse
 import vancore.playground.hearthstone.data.local.CardDao
 import vancore.playground.hearthstone.data.local.CardDb
 import vancore.playground.hearthstone.data.model.Card
@@ -17,6 +21,8 @@ class CardRemoteMediator(
     private val cardApi: CardApi,
     private val region: String
 ) : RemoteMediator<Int, Card>() {
+
+    private var authToken: String? = null
     private val postDao: CardDao = db.cards()
 
     override suspend fun load(
